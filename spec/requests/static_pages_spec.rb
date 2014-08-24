@@ -1,60 +1,40 @@
 require 'spec_helper'
 
-# describe "StaticPages" do
-#   describe "GET /static_pages" do
-#     it "works! (now write some real specs)" do
-#       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-#       get static_pages_index_path
-#       response.status.should be(200)
-#     end
-#   end
-# end
-
-
 describe "Static pages" do
-	
 	describe "Home page" do
-		it "should have the right title" do 
-			visit '/static_pages/home'
-			page.should have_selector('h1',
-				:text => 'Sample App')
-		end 
+		before { visit root_path }
+		subject { page }
+		
+		it { should have_selector('h1',
+			:text => 'Sample App') }
 
-		it "should have the right title" do 
-			visit '/static_pages/home'
-			page.should have_selector('title',
-				:text => "Ruby on Rails Tutorial Sample App")
-		end 
+		it { should have_selector('title',
+			:text => "Ruby on Rails Tutorial Sample App") }
 
-		it "should not have a custom page title" do
-			visit "/static_pages/home"
-			page.should_not have_selector('title', :text => '| Home')
-		end
+		it { should_not have_selector('title', :text => '| Home') }
+
 	end
 
 	describe "Help page" do
-		it "should have the content 'Help'" do
-			visit '/static_pages/help'
-			page.should have_selector('h1', :text => 'Help')
-		end
+		before { visit help_path }
+		subject { page }
 
-		it "should have the right title" do
-			visit '/static_pages/help'
-			page.should have_selector('title', :text => '| Help')
-		end
+		it { should have_selector('h1', :text => 'Help') }
+		it { should have_selector('title', :text => '| Help') }
 	end
 
 	describe "About page" do
-		it "should have the content 'About'" do
-			visit '/static_pages/about' 
-			page.should have_selector('h1', :text => 'About Us')
-		end
-
-		it "should have the content 'About'" do
-			visit '/static_pages/about' 
-			page.should have_selector('title', :text => '| About Us')
-		end
+		before { visit about_path }
+		subject { page }
+		it { should have_selector('h1', :text => 'About Us') }
+		it { should have_selector('title', :text => '| About Us') }
 	end
 
+	describe "Contact page" do
+		before { visit contact_path }
+		subject { page }
 
+		it { should have_selector('h1', :text => 'Contact') }
+		it { should have_selector('title', :text => '| Contact') }
+	end
 end
