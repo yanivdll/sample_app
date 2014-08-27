@@ -1,4 +1,6 @@
 require 'spec_helper'
+include ApplicationHelper
+
 
 describe "User Pages" do
 	subject { page }
