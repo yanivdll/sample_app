@@ -58,6 +58,17 @@ describe User do
     it {should_not be_valid}
   end
 
+  describe "when a user inset an email address that isn't lowercase" do
+    let (:mixed_case_email) {"YanivDll@gmail.com"}
+    
+    it "should be saved as all lower-case" do
+      binding.pry
+      @user.email = mixed_case_email
+      @user.save
+      @user.reload.email.should == mixed_case_email.downcase
+    end
+  end
+
   describe "when password is not present" do
     before {@user.password = @user.password_confirmation = ""}
     it {should_not be_valid}
@@ -89,7 +100,7 @@ describe User do
     end
   end
 
-  describe "whit a password that's too short" do
+  describe "with a password that's too short" do
     before {@user.password = @user.password_confirmation = 'a' * 5}
 
     it {should be_invalid}
