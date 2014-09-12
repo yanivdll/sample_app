@@ -6,10 +6,9 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(params[:user])
 		if @user.save
-			#Handle a successful save
+			redirect_to @user
 		else
 			render 'new'
-			binding.pry
 		end
 	end
 
@@ -17,3 +16,4 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 	end
 end
+

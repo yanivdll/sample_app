@@ -16,6 +16,7 @@ describe User do
   describe "when name is not present" do
     before {@user.name = ""}
     it {should_not be_valid}
+    # binding.pry
   end
 
   describe "when name is too long" do
@@ -62,7 +63,6 @@ describe User do
     let (:mixed_case_email) {"YanivDll@gmail.com"}
     
     it "should be saved as all lower-case" do
-      binding.pry
       @user.email = mixed_case_email
       @user.save
       @user.reload.email.should == mixed_case_email.downcase
