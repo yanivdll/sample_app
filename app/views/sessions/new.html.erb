@@ -1,0 +1,23 @@
+<% provide(:title, "Sign in") %> 
+<h1>Sign in</h1>
+
+<!-- this is the verion of the form with the form_tag - using this instead of form_for changes the hash, and hence the create action in the sesssion controller. This is hy I left both versions of this form (for future reference) -->
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_tag sessions_path, method: 'post' do  %>
+
+		<%= label_tag :email %>
+		<%= text_field_tag :email %>
+
+		<%= label_tag :password %>
+		<%= password_field_tag :password %>
+
+		<%= submit_tag "Sign in", class: "btn btn-large btn-primary" %>
+
+		<% end %>
+
+		<p>New user? <%= link_to "Sign up now!", signup_path %></p>
+		
+
+	</div>
+</div>
