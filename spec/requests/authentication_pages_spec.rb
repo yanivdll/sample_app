@@ -53,6 +53,8 @@ describe "Authentication" do
 				describe "visiting the user index page" do
 					before {visit users_path}
 					it {should have_selector('title', text: "Sign in")}
+					it {should_not have_link('title', text: "Profile")}
+					it {should_not have_link('title', text: "Settings")}
 				end
 			end
 
@@ -98,6 +100,16 @@ describe "Authentication" do
 			describe "submitting a DELETE request to the Users#destroy action" do
 				before {delete user_path(user)}
 				specify {response.should redirect_to(root_path)}
+			end
+		end
+
+		describe "as admin user" do
+			let(:admin) { FactoryGirl.create(:admin) }
+			before { sign_in admin }
+
+			describe "can't delete self by submitting DELETE request to Users#destroy" do
+				before { delete user_path(admin) }
+				specify { response.should redirect_to(users_path), flash[:error].should =~ /Can not delete own admin account!/i }
 			end
 		end
 	end
